@@ -1,0 +1,56 @@
+# MAP.tsv — the router. GREP IT, never read it.
+#
+#   grep -i navigation MAP.tsv              which doc covers a topic
+#   awk -F'\t' '$2=="command"' MAP.tsv      everything of one kind
+#   awk -F'\t' '$2 ~ /:remote/' MAP.tsv     rows not on disk — fetch them
+#
+# Columns (tab-separated): path  kind  topics  read-it-when
+# kind: doc | rule | note | pattern | skill | command | module | design
+# A kind suffixed ":remote" is NOT on disk in this repo — fetch it when needed, so a
+# product does not carry docs for layers it does not have.
+#
+# Every new file gets a row in the same change that creates it.
+path	kind	topics	read it when
+CLAUDE.md	rule	rules architecture stack concurrency testing conventions consent	Before writing any code — it is loaded every session
+README.md	doc	install commands skills pipeline tasks front-door	You are adopting this layer, or forgot the five commands
+docs/DESIGN-NOTE.md	design	rationale port-table build-order enhancements findings	You need the reasoning behind a rule, or the order to build the tooling in
+docs/STRUCTURE.md	doc	where-does-this-go prose docs-layout token-budget	Before creating any new document
+docs/DECISIONS.md	doc	decisions rationale settled-choices do-not-re-propose	Before asking a §0 question — a row here means do not ask again
+docs/GAPS.md	doc	missing deliberately-absent triage revisit-when	Something looks missing and you need to know if it is a gap or an oversight
+docs/DONE.md	doc	checklist completion verify content-states accessibility	Before saying a change is done
+docs/CONVENTIONS.md	doc	naming file-layout kotlin compose kdoc visibility	Naming something, or laying out a new file
+docs/ADOPTION.md	doc	adopt existing-repo conflicts baseline migration phases	Installing into a repo that already exists, or hitting a rule conflict
+docs/SEQUENCE.md	doc	lifecycle gate exit-5 steps skip ordering	A command refused with exit 5, or you do not know which step is next
+docs/BUILD-PROCESS.md	doc	build gradle variants toolchain cross-os traps secrets-at-configuration	A build fails, or it fails only on one operating system
+docs/DEPLOYMENT-PROCESS.md	doc	ci pipeline stages promotion enforcement providers	Wiring CI, or asking what the pipeline actually blocks
+docs/DELIVERY.md	doc	secrets signing versioning release rollback staged-rollout checklist	Shipping, rotating a key, or planning a rollback
+docs/PROJECT-SETTINGS.md	doc	minsdk targetsdk permissions deep-links backup network-security variants	Changing an SDK level, adding a permission, or touching manifest configuration
+docs/modules/README.md	doc	module-rows template ownership dependency-edges	Creating a module, or documenting what one owns
+docs/patterns/README.md	doc	patterns procedures promote-to-skill template	Writing down a repeatable procedure
+.claude/INDEX.md	doc	what-this-product-has inventory	Looking for something this product specifically has
+.claude/skills/new-feature/SKILL.md	skill	new-screen scaffold-module feature content-states fake	Adding a feature, screen or module (fires by itself)
+.claude/skills/debug/SKILL.md	skill	crash blank-screen release-only leak jank anr symptom-index	Something is broken, blank or silently wrong (fires by itself)
+.claude/commands/project-init.md	command	adopt reconcile rules approval	Adopting the layer into an existing repo
+.claude/commands/gaps.md	command	triage gaps capabilities	Deciding what is deliberately absent in this repo
+.claude/commands/sync-app-notes.md	command	rescan inventories notes generate	The generated inventories are stale
+.claude/commands/find.md	command	lookup screen route endpoint string colour drawable module	You need to know where something is
+.claude/commands/decide.md	command	record decision rationale	A §0 question has been answered and must stop being asked
+.claude/commands/learn.md	command	record resource promote-pattern add-task	Something learned is worth keeping
+.claude/commands/verify.md	command	done checklist diff report	Checking whether a change is actually finished
+.claude/commands/review.md	command	review pr diff rules report-only	Reviewing someone else's change against the rules
+.claude/commands/build.md	command	assemble bundle test consent variant	You want a build run — and this is the consent for it
+.claude/commands/upgrade-stack.md	command	agp gradle kotlin sdk toolchain upgrade	Reconciling the stack with the machine
+.claude/commands/release.md	command	release checklist version changelog emit-only	Preparing a release — it prints commands and runs none
+.claude/commands/sync-with-base.md	command	upstream base updates adopt-review	Taking updates from this base into an adopting repo
+.claude/notes/PROJECT.md	note:remote	agp gradle kotlin jdk sdks flavours signing resolved-stack	You need a version — never quote one from memory
+.claude/notes/MODULE-GRAPH.md	note:remote	modules dependencies direction mermaid	Checking whether a dependency edge is legal
+.claude/notes/NAVIGATION.md	note:remote	routes navhost destinations deep-links	Adding or finding a route
+.claude/notes/API-MAP.md	note:remote	endpoints retrofit ktor requests	Finding which endpoint a screen calls
+.claude/notes/ASSETS-COLORS.md	note:remote	colors tokens theme literals	Adding a colour, or hunting a hardcoded one
+.claude/notes/FONTS.md	note:remote	fonts fontfamily typography	Touching typography
+.claude/notes/STRINGS.md	note:remote	strings locales translation parity-matrix	A string is missing, or a locale is incomplete
+.claude/notes/PERMISSIONS.md	note:remote	permissions exported deep-links autoverify manifest	Adding a permission or an exported component
+.claude/notes/VARIANTS.md	note:remote	flavours build-types signing buildconfig placeholders	A bug appears in one variant only
+.claude/notes/FEATURES.md	note:remote	features screens states reviewer-gated	Asking what already exists before scaffolding
+.claude/notes/STYLE-GUIDE.md	note:remote	designsystem tokens components reviewer-gated	Building UI that must match the design system
+.claude/memory/INDEX.md	note	memory learned-earlier sessions	Picking up work an earlier session started

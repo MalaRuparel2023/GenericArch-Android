@@ -1,0 +1,15 @@
+.gradle/
+build/
+.kotlin/
+local.properties
+secret.properties
+*.keystore
+*.jks
+
+.idea/
+*.iml
+.DS_Store
+
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
