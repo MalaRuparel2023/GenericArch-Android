@@ -1,0 +1,89 @@
+# dependency-rules.yaml
+#
+# The dependency direction, as data. Asserted against Gradle's own project dependency model — not
+# against imports — so a transitive edge cannot evade it.
+#
+# Consumed by: scripts/androidArchCheck.sh, module-graph-assert, and the Konsist suite.
+
+version: 1
+
+# Lower index = lower layer. A module may depend only on layers strictly below its own.
+layers:
+  - id: app
+    match: ":app"
+  - id: feature
+    match: ":feature:*"
+  - id: core
+    match: ":core:*"
+  - id: foundation
+    match: [":core:model", ":core:common"]
+
+allowed_edges:
+  - from: app
+    to: [feature, core, foundation]
+  - from: feature
+    to: [core, foundation]
+  - from: core
+    to: [foundation]
+  - from: foundation
+    to: []
+
+forbidden_edges:
+  - from: ":feature:*"
+    to: ":feature:*"
+    severity: error
+    message: >
+      Sideways edge. Extract the shared capability to a :core interface, or navigate by route value.
+  - from: ":core:*"
+    to: ":feature:*"
+    severity: error
+    message: Upward edge. A core module must not know that a screen exists.
+  - from: ":core:model"
+    to: "*"
+    severity: error
+    message: The foundation stays pure Kotlin.
+
+cycles:
+  allowed: false
+  severity: error
+
+foundation_constraints:
+  - module: ":core:model"
+    forbid_dependencies: ["androidx.*", "com.google.android.*", "com.android.*"]
+    message: ":core:model declares no Android SDK dependency."
+  - module: ":core:common"
+    forbid_dependencies: ["*"]
+    allow: ["org.jetbrains.kotlin*", "org.jetbrains.kotlinx*"]
+    message: ":core:common has no dependencies beyond the Kotlin stdlib and coroutines."
+
+# One vendor, one module. This is a build.gradle.kts fact, so it is assertable rather than hoped for.
+vendor_containment:
+  severity: error
+  message: A vendor may be declared by exactly one module — its wrapper.
+  wrappers:
+    - vendor: ["com.squareup.retrofit2*", "com.squareup.okhttp3*"]
+      module: ":core:network"
+    - vendor: ["androidx.room*"]
+      module: ":core:database"
+    - vendor: ["androidx.datastore*"]
+      module: ":core:datastore"
+    - vendor: ["io.coil-kt*", "com.github.bumptech.glide*"]
+      module: ":core:imageloader"
+    - vendor: ["com.google.firebase*"]
+      module: ":core:messaging"
+
+version_policy:
+  dynamic_versions:
+    allowed: false
+    severity: error
+    message: '"+" and "latest.release" make the build non-reproducible across machines.'
+  hardcoded_versions_in_module_build_files:
+    allowed: false
+    severity: error
+    message: Every version is an alias in gradle/libs.versions.toml.
+  internal_edges:
+    require: "projects.* type-safe accessor"
+    message: No version numbers on internal edges.
+  verification_metadata:
+    required: true
+    severity: warning
