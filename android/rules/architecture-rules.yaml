@@ -1,0 +1,119 @@
+# architecture-rules.yaml
+#
+# The rules a machine can decide, in one machine-readable place so the local script, the Gradle
+# check and the CI workflow all enforce the SAME set — not three drifting approximations.
+#
+# severity: error   fails the build
+#           warning reported, does not fail
+#           info    counted only
+#
+# Consumed by: scripts/androidArchCheck.sh, tools/androidArchCheck/, and the Konsist test suite.
+
+version: 1
+
+rules:
+  - id: ARCH-001
+    name: No feature module imports a sibling feature
+    severity: error
+    rationale: >
+      A sideways edge is the cheapest bad decision in an Android codebase and the most expensive to
+      reverse. Once it exists, neither module builds alone, tests alone, or ships alone.
+    applies_to: "feature/**"
+    forbid_import: "**.feature.*"
+    remedy: Extract the capability to a :core interface, or navigate by route value.
+    enforced_by: [module-graph-assert, konsist]
+
+  - id: ARCH-002
+    name: No third-party type crosses a module boundary
+    severity: error
+    rationale: Swapping a vendor must touch exactly one module. A leaked vendor type makes that impossible.
+    applies_to: "**"
+    remedy: Wrap the vendor; expose our own types at the boundary.
+    enforced_by: [konsist]
+
+  - id: ARCH-003
+    name: No hardcoded user-facing string
+    severity: error
+    applies_to: "**"
+    remedy: Use a strings.xml key, present in every shipped locale.
+    enforced_by: [lint:HardcodedText, lint:MissingTranslation]
+
+  - id: ARCH-004
+    name: No ad-hoc AlertDialog, Toast or Snackbar inside a feature
+    severity: error
+    rationale: One presenter, or the app has as many notification styles as it has authors.
+    applies_to: "feature/**"
+    forbid_symbol: [AlertDialog, Toast, Snackbar]
+    enforced_by: [lint:custom]
+
+  - id: ARCH-005
+    name: Every data-driven screen handles every content state
+    severity: error
+    states: [idle, loading, empty, offline, error, loaded, pagingAppend, pagingError]
+    rationale: The states nobody demos are the states users hit first.
+    enforced_by: [screenshot-test]
+
+  - id: ARCH-006
+    name: Every dependency injected
+    severity: error
+    applies_to: "**"
+    forbid: [stateful-object-singleton, "EntryPoints.get"]
+    enforced_by: [konsist]
+
+  - id: ARCH-007
+    name: No swallowed exception, no !!, no empty onFailure, no shipping TODO()
+    severity: error
+    enforced_by: [detekt:SwallowedException, detekt:UnsafeCallOnNullableType, detekt:ForbiddenMethodCall]
+
+  - id: ARCH-008
+    name: No GlobalScope, no un-scoped CoroutineScope
+    severity: error
+    rationale: Every scope is owned by something that cancels it, or it outlives what it serves.
+    enforced_by: [detekt:GlobalCoroutineUsage]
+
+  - id: ARCH-010
+    name: No BuildConfig or flavour branching inside a feature
+    severity: error
+    applies_to: "feature/**"
+    forbid_import: "**.BuildConfig"
+    remedy: Read configuration once at the composition root; inject it as AppEnvironment.
+    enforced_by: [konsist]
+
+  - id: ARCH-016
+    name: No Context held beyond its owner's lifetime
+    severity: error
+    rationale: The most common Android memory leak, and invisible in review.
+    forbid_field_type_in: [ViewModel, object, companion]
+    forbid_types: [Activity, View, Context]
+    enforced_by: [konsist, leakcanary]
+
+  - id: ARCH-017
+    name: Every screen survives process death
+    severity: warning
+    remedy: State that must outlive the process goes through SavedStateHandle, never a static cache.
+    enforced_by: [review]
+
+  - id: ARCH-018
+    name: No blocking call on the main dispatcher
+    severity: error
+    rationale: Fine on a dev machine, an ANR in the field.
+    require: injected DispatcherProvider on every suspend function touching IO
+    forbid_symbol: ["Dispatchers.IO", "runBlocking"]
+    enforced_by: [detekt, konsist]
+
+  - id: ARCH-020
+    name: Compose UI collects with collectAsStateWithLifecycle
+    severity: error
+    applies_to: "**/*Screen.kt"
+    forbid_symbol: ["collectAsState()"]
+    enforced_by: [detekt, konsist]
+
+  - id: ARCH-021
+    name: Accessibility floor
+    severity: warning
+    requires:
+      - interactive targets >= 48dp
+      - contentDescription present or clearAndSetSemantics explicit
+      - meaning never carried by colour alone
+      - text scales to 200% without clipping
+    enforced_by: [lint:accessibility, screenshot-test]

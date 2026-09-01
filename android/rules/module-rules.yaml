@@ -1,0 +1,74 @@
+# module-rules.yaml
+#
+# What a module must declare, and what it must never contain. Checked when a module is created and
+# on every PR that touches a build file.
+
+version: 1
+
+naming:
+  app: ":app"
+  feature: ":feature:<capability>"
+  core: ":core:<capability>"
+  testing: ":testing"
+  lint: ":lint-checks"
+  style: >
+    Names are nouns describing a capability, not a layer or a pattern. :core:network, not :core:data.
+  forbid_suffixes: ["Manager", "Helper", "Utils", "Impl"]
+  forbid_module_names: ["common-ui", "shared", "misc", "base"]
+
+required_per_module:
+  - build_file: build.gradle.kts
+    must_apply_exactly_one_of:
+      - genericarch.android.application
+      - genericarch.android.library
+      - genericarch.jvm.library
+    message: No hand-rolled android {} block. One convention plugin, always.
+  - documentation: docs/modules/<Module>.md
+    must_contain: [Owns, May depend on, Must not, Public API, Vendors wrapped, Test doubles]
+    message: A module without a row is a module nobody can reason about.
+  - registration: settings.gradle.kts
+  - map_row: .claude/MAP.tsv
+
+standalone:
+  required: true
+  severity: error
+  verify: "./gradlew :<module>:assemble :<module>:test"
+  message: >
+    Every module builds and tests standalone. That property, not the folder layout, is what
+    enforces the boundaries — a module that only compiles as part of :app has none.
+
+visibility:
+  default: internal
+  public_requires: crosses a module boundary
+  kdoc_required_on_public: true
+  severity: error
+
+feature_module:
+  max_public_types: 3
+  must_expose: ["<Name>Route"]
+  must_not_contain:
+    - BuildConfig usage
+    - a sibling feature dependency
+    - a direct vendor SDK dependency
+    - an Activity or Fragment other than the entry point
+  must_contain_for_each_screen:
+    - "<Name>Route.kt"
+    - "<Name>Screen.kt"
+    - "<Name>ViewModel.kt"
+    - "<Name>UiState.kt with every content state"
+    - a screenshot test per content state
+    - a fake for every interface introduced
+
+core_module:
+  must_not_reference: ["feature", "screen", "Activity"]
+  interface_first: true
+  message: Every capability is an interface first, implementation second.
+
+extraction_to_own_repo:
+  requires_all:
+    - product-independent
+    - actually reused
+    - stable API
+    - works with no :core:designsystem theme
+  severity: decision
+  message: All four, or it stays. This is a decision, not a refactor.
