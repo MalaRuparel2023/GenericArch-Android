@@ -4,12 +4,43 @@ Five minutes to a signal, on Linux, Windows or macOS. JDK 17 and bash are the on
 
 ## 1. Get the framework
 
+GenericArch is a **layer you install into a project that already builds** — not a template you start
+from. If you have no Android project yet, create one with Android Studio first, then come back.
+
+There are two ways in, and they differ in what they leave behind.
+
+### The one-liner — `bootstrap.sh`
+
+Run from the root of the app you want the layer in. Read it first; it is 175 lines and the only
+script in the lifecycle that touches the network.
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/MalaRuparel2023/GenericArch-Android/HEAD/bootstrap.sh
+```
+```bash
+less bootstrap.sh && bash bootstrap.sh
+```
+
+That is a dry run — it prints the plan and writes nothing. Add `--apply` when the plan looks right,
+and `--with-ci` / `--with-conventions` to take those too. The flags are forwarded to `install.sh`
+verbatim.
+
+It shallow-clones the newest semver tag into a temp directory, hands over to that clone's
+`install.sh`, and deletes the clone on exit. Pin a version with `--ref v1.2.0`; point it somewhere
+else with `GA_REPO`. Steps 2–4 below happen inside it, so skip to step 5.
+
+It refuses **before** fetching if the directory has no `settings.gradle[.kts]`, or if you are
+standing in the framework base itself.
+
+### The checkout — `git clone`
+
 ```bash
 git clone https://github.com/MalaRuparel2023/GenericArch-Android.git
 ```
 
-GenericArch is a **layer you install into a project that already builds** — not a template you start
-from. If you have no Android project yet, create one with Android Studio first, then come back.
+Slower to get going, but the clone stays: you can `git pull` for updates, read the rules in place,
+and install into several projects from one copy. **Required if you intend to change the framework
+itself** — the bootstrap's temp clone is gone before you could edit it.
 
 ## 2. Check the ground before you build on it
 
