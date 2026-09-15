@@ -16,6 +16,20 @@ it stays true.
 
 ## Quick start
 
+From the root of the app you want the layer installed into — read the script, then run it:
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/MalaRuparel2023/GenericArch-Android/HEAD/bootstrap.sh
+```
+```bash
+less bootstrap.sh && bash bootstrap.sh --apply --with-ci
+```
+
+`bootstrap.sh` clones the framework to a temp directory, hands over to `install.sh`, and deletes
+the clone. It is a dry run until you pass `--apply`.
+
+Prefer a checkout you keep — and the only option if you intend to edit the framework:
+
 ```bash
 git clone https://github.com/MalaRuparel2023/GenericArch-Android.git
 ```
@@ -96,6 +110,8 @@ GenericArch-Android/
 │   ├── androidArchDoctor/
 │   ├── androidArchCheck/
 │   └── androidArchTest/
+│
+├── bootstrap.sh          # the only script that touches the network
 │
 ├── scripts/
 │   ├── install.sh
@@ -207,7 +223,7 @@ written down**.
 | | |
 |---|---|
 | Architecture docs, rules, conventions | **written** |
-| `install.sh`, `androidArchDoctor.sh`, `androidArchCheck.sh`, `androidArchTest.sh` | **working** |
+| `bootstrap.sh`, `install.sh`, `androidArchDoctor.sh`, `androidArchCheck.sh`, `androidArchTest.sh` | **working** |
 | Claude commands and skills | **written** |
 | CI workflow | **written** |
 | Gradle tasks in `tools/` | contract documented, **not implemented** |
