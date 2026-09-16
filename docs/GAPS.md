@@ -6,7 +6,7 @@ recorded here and `✗` for one that is not. Triage with `/gaps`.
 | # | Gap | Why it is absent today | Revisit when |
 |---|---|---|---|
 | 1 | No `androidArch*` Gradle tasks implemented | Design note §12 step 0: nothing is worth building until a target repo has a reproducible clean-checkout build. The rules and docs pay off without them | Talnetsure passes `git clone && ./gradlew assembleEnvDevDebug` on a clean machine |
-| 2 | No install manifest, uninstaller, reseal or remove | §12 steps 13–14: they make the layer adoptable by strangers and are pure overhead while there is exactly one consumer | A second Android repo needs to adopt this |
+| 2 | No reseal or in-place upgrade | The manifest and `uninstall.sh` landed (§12 step 13); resealing an edited install and upgrading over an older one are the remainder of step 14 | A target repo needs to move between two installed versions without removing first |
 | 3 | No CI workflows committed | Stage 1 needs `androidArchCheck` and `androidArchTest` to exist first, or the pipeline gates on nothing | Steps 2–3 of the build order land |
 | 4 | No `.claude/notes/` inventories | They are generated from a target repo's code; this repo has no Kotlin to scan | `androidArchSyncNotes` exists (§12 step 8) |
 | 5 | No `TASKS.tsv` | Generated from task metadata; there are no tasks yet | Step 7 |

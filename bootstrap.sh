@@ -19,6 +19,10 @@
 #   --with-ci ·              install.sh's own flags, forwarded verbatim
 #   --with-conventions
 #
+# To remove a layer this installed, run the uninstall from the target project:
+#   bash scripts/uninstall.sh --apply
+# It reads .claude/.genericarch-manifest and removes exactly what the install wrote.
+#
 # This is the ONLY script in the lifecycle that touches the network, and all it does is fetch.
 # Every decision about what lands in your repo belongs to install.sh, which runs offline against
 # the clone this leaves behind.
@@ -36,7 +40,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --apply) APPLY=1; shift ;;
     --ref) [ $# -ge 2 ] || { echo "--ref needs a tag" >&2; exit 2; }; GA_REF="$2"; shift 2 ;;
-    --help|-h) sed -n '2,25p' "$0" 2>/dev/null || echo "see the header of bootstrap.sh"; exit 0 ;;
+    --help|-h) sed -n '2,29p' "$0" 2>/dev/null || echo "see the header of bootstrap.sh"; exit 0 ;;
     # install.sh's own flags, forwarded verbatim.
     --with-ci|--with-conventions) PASS_THROUGH="$PASS_THROUGH $1"; shift ;;
     # A trailing `# comment` pasted from the README arrives as arguments in zsh, whose
@@ -60,8 +64,10 @@ command -v git >/dev/null 2>&1 || { echo "${RED}git is required${OFF}" >&2; exit
 # install.sh repeats both of these checks offline; duplicating them here only moves the refusal
 # earlier, it does not own the decision.
 
-# The usual copy/paste accident: running this inside the framework base itself.
-if [ -f "$TARGET/CLAUDE.md" ] && grep -q "GenericArch-Android" "$TARGET/CLAUDE.md" 2>/dev/null; then
+# The usual copy/paste accident: running this inside the framework base itself. Identified by the
+# base's own layout, not by a CLAUDE.md mention — an app that documents its adoption of the layer
+# names it too, and refusing those made a re-run of the install impossible.
+if [ -f "$TARGET/scripts/install.sh" ] && [ -d "$TARGET/android/rules" ] && [ -d "$TARGET/.claude/skills" ]; then
   echo "${RED}this looks like the GenericArch-Android base itself — nothing to install${OFF}" >&2
   echo "  ${DIM}run this from the root of the app you want the layer installed into${OFF}" >&2
   exit 1

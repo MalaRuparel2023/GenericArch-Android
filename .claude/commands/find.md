@@ -22,7 +22,7 @@ feature* — and the `new-feature` skill should stop.
 
 ```bash
 grep -i <topic> .claude/MAP.tsv          # which doc, note or pattern covers a topic
-grep -i <topic> .claude/TASKS.tsv        # which task does this, and its contract
+./gradlew tasks --group=genericarch      # which task does this (TASKS.tsv is not built yet)
 ./gradlew androidArchFindTask --q="<what you want>"   # rediscover a task by intent
 ```
 

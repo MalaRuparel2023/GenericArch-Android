@@ -26,7 +26,9 @@ and `--with-ci` / `--with-conventions` to take those too. The flags are forwarde
 verbatim.
 
 It shallow-clones the newest semver tag into a temp directory, hands over to that clone's
-`install.sh`, and deletes the clone on exit. Pin a version with `--ref v1.2.0`; point it somewhere
+`install.sh`, and deletes the clone on exit. The install leaves a manifest at
+`.claude/.genericarch-manifest` and a `scripts/uninstall.sh` that reads it, so the layer comes back
+out with `./scripts/uninstall.sh --apply`. Pin a version with `--ref v1.2.0`; point it somewhere
 else with `GA_REPO`. Steps 2–4 below happen inside it, so skip to step 5.
 
 It refuses **before** fetching if the directory has no `settings.gradle[.kts]`, or if you are

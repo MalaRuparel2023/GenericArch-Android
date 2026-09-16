@@ -28,6 +28,16 @@ less bootstrap.sh && bash bootstrap.sh --apply --with-ci
 `bootstrap.sh` clones the framework to a temp directory, hands over to `install.sh`, and deletes
 the clone. It is a dry run until you pass `--apply`.
 
+The install writes a manifest at `.claude/.genericarch-manifest` naming every file it wrote, and
+installs `scripts/uninstall.sh` alongside it. To take the layer back out:
+
+```bash
+./scripts/uninstall.sh --apply
+```
+
+It removes exactly what the manifest names. A file you added yourself was never in it; a file you
+edited since the install is reported and kept unless you pass `--force`.
+
 Prefer a checkout you keep — and the only option if you intend to edit the framework:
 
 ```bash
@@ -115,6 +125,7 @@ GenericArch-Android/
 │
 ├── scripts/
 │   ├── install.sh
+│   ├── uninstall.sh
 │   ├── androidArchDoctor.sh
 │   ├── androidArchCheck.sh
 │   └── androidArchTest.sh
@@ -223,7 +234,7 @@ written down**.
 | | |
 |---|---|
 | Architecture docs, rules, conventions | **written** |
-| `bootstrap.sh`, `install.sh`, `androidArchDoctor.sh`, `androidArchCheck.sh`, `androidArchTest.sh` | **working** |
+| `bootstrap.sh`, `install.sh`, `uninstall.sh`, `androidArchDoctor.sh`, `androidArchCheck.sh`, `androidArchTest.sh` | **working** |
 | Claude commands and skills | **written** |
 | CI workflow | **written** |
 | Gradle tasks in `tools/` | contract documented, **not implemented** |
