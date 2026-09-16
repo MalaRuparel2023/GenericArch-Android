@@ -25,7 +25,7 @@ themselves.
 
 - A generated block carries its own caveat **inside it**, and a `Last synced` line.
 - **Edit the affected rows in the same change** as the insertion or deletion. A full rescan is
-  `/sync-app-notes` — the user's call, never started unprompted.
+  `/android-sync-app-notes` — the user's call, never started unprompted.
 - Nothing here is hand-written. If you are tempted to hand-write a row, the generator has a gap.
 
 **This repo has no Kotlin, so it generates none of these.** See `docs/GAPS.md` row 4.

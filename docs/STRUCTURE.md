@@ -8,7 +8,7 @@
 | A rule that binds *while writing code* | `CLAUDE.md`, under an existing §N | every session |
 | Why a settled choice was made | `DECISIONS.md` | on lookup |
 | What is deliberately absent, and the trigger to revisit | `GAPS.md` | on lookup |
-| What "finished" means for a change | `DONE.md` | before `/verify` |
+| What "finished" means for a change | `DONE.md` | before `/android-verify` |
 | Naming, layout, visibility, KDoc | `CONVENTIONS.md` | on lookup |
 | How to build a variant on a machine | `BUILD-PROCESS.md` | when the task is that |
 | How a build reaches users, and how to roll it back | `DEPLOYMENT-PROCESS.md` · `DELIVERY.md` | when the task is that |

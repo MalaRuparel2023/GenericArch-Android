@@ -5,6 +5,8 @@ argument-hint: [PR number | branch | path]
 
 # /android-review
 
+> **Not implemented yet** — `docs/GAPS.md` row 1. This task does not exist: `androidArchCheck`. Until they exist, the working equivalent is `./scripts/androidArchCheck.sh`.
+
 Reviews a change against [`android/rules/`](../../android/rules/), citing the rule id for every
 finding. An objection that cites `ARCH-001` is checkable; one that cites taste is an argument.
 

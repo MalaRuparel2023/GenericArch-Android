@@ -22,13 +22,13 @@ point — it is a baseline, not a verdict. Two honest ways to hold it:
 1. **Baseline the debt** (lint baseline, detekt baseline) and gate only on *new* violations.
 2. **Fail loudly and fix a category at a time**, gating one rule as each category reaches zero.
 
-Choose one with `/decide`. Never silence a rule by deleting it.
+Choose one with `/android-decide`. Never silence a rule by deleting it.
 
 ## What is never touched
 
 Your `CLAUDE.md` (unless `--with-claude-md`), your `.claude/settings.json`, your decisions, your
 notes. If the base's `CLAUDE.md` is taken, yours is preserved at `CLAUDE-BK.md` and reconciling the
-two is `/project-init`'s job, with approval, section by section.
+two is `/android-project-init`'s job, with approval, section by section.
 
 ## Phased module migration
 

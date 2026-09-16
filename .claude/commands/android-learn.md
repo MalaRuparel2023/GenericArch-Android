@@ -3,7 +3,9 @@ description: Record what a session learned — a resource, a finished piece of w
 argument-hint: [--task | --pattern] <what was learned>
 ---
 
-# /learn
+# /android-learn
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. This task does not exist: `androidArchRegisterTasks`. There is no working equivalent yet; this command cannot be run end to end.
 
 Memory is in-repo and tracked, so what one session learned survives a clone and reaches the team.
 
@@ -15,7 +17,7 @@ Memory is in-repo and tracked, so what one session learned survives a clone and 
 | A repeatable procedure | `docs/patterns/<name>.md` + a `MAP.tsv` row |
 | A procedure invoked often enough to earn always-on context | promote to a skill — and say what its trigger phrases are |
 | A step repeated by hand more than twice | `--task`: propose a Gradle task, with its full metadata |
-| A settled choice | `/decide` instead |
+| A settled choice | `/android-decide` instead |
 | A rule that binds while writing code | `CLAUDE.md`, with explicit approval |
 
 ## Rules

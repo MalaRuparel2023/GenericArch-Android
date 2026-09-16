@@ -53,7 +53,7 @@ grep -i <topic> .claude/MAP.tsv
 
 Presentation pattern · persistence engine · caching/offline policy · paging · a new dependency ·
 `minSdk` · a new flavour · a new permission. Check `docs/DECISIONS.md` first — a row there means do
-not ask again. Otherwise: options + a recommendation + **Other** + **Skip**, then `/decide`.
+not ask again. Otherwise: options + a recommendation + **Other** + **Skip**, then `/android-decide`.
 
 ## 6. Leave the reasoning behind
 

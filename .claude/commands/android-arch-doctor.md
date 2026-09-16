@@ -10,9 +10,9 @@ Answers one question: **is this project's architecture in the shape its rules cl
 ./gradlew androidArchDoctor
 ```
 
-> **Not implemented yet** — `docs/GAPS.md` row 1. Until the task exists, this command performs the
-> same walk by reading the project directly, and says so in its output. Every number it reports is
-> acquired from the repo, **never quoted from memory** (§1).
+> **Not implemented yet** — `docs/GAPS.md` row 1. The working equivalent is
+> `./scripts/androidArchDoctor.sh [project]`, which performs the same walk by reading the project
+> directly. Every number it reports is acquired from the repo, **never quoted from memory** (§1).
 
 ## The contract is the output
 
@@ -55,7 +55,7 @@ Release
 
 =================================
   FAILED — 2 blocking, 2 warnings
-  Next:  ./gradlew androidArchStep --show
+  Next:  fix the ✗ rows, then re-run
 =================================
 ```
 

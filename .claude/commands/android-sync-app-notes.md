@@ -2,7 +2,9 @@
 description: Rebuild the eleven generated inventories in .claude/notes/ — incremental, only what changed
 ---
 
-# /sync-app-notes
+# /android-sync-app-notes
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchStep`, `androidArchSyncNotes`. There is no working equivalent yet; this command cannot be run end to end.
 
 Lifecycle step 4. First action:
 

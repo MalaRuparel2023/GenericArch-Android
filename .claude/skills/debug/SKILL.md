@@ -31,7 +31,7 @@ a build.
 | Recomposition storm / jank | Unstable parameter, or a lambda allocated per recomposition | Compose compiler metrics |
 | Fine locally, ANR in the field | A blocking call on the main dispatcher (§2.18) | StrictMode, Play Vitals |
 
-If nothing matches, say so rather than forcing a row. An unmatched symptom is worth a `/learn` entry
+If nothing matches, say so rather than forcing a row. An unmatched symptom is worth a `/android-learn` entry
 once it is solved.
 
 ## 3. Narrow before reading
@@ -54,5 +54,5 @@ implying it works.
 
 ## 5. Close it
 
-A fix that a rule would have prevented is a `/decide` row or a `docs/GAPS.md` row. A symptom that
-cost real time and is not in the table above belongs in the table, via `/learn`.
+A fix that a rule would have prevented is a `/android-decide` row or a `docs/GAPS.md` row. A symptom that
+cost real time and is not in the table above belongs in the table, via `/android-learn`.

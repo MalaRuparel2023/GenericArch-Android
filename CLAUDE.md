@@ -7,7 +7,7 @@ Anything not here is *acquired*: `grep -i <topic> .claude/MAP.tsv`.
 ## §0 — Decisions to ASK about, never assume
 
 Check `docs/DECISIONS.md` first; if a row answers it, follow it without re-asking. Otherwise offer
-options + a recommendation + **Other** + **Skip**, wait, then record with `/decide`.
+options + a recommendation + **Other** + **Skip**, wait, then record with `/android-decide`.
 
 | Decision | When to ask | Options |
 |---|---|---|
@@ -58,7 +58,7 @@ a DesignSystem component; a feature must not know which API level it is on. `New
 | 9 | **No silent architectural choice.** If it is in §0, ask | review |
 | 10 | **No `BuildConfig.DEBUG` or flavour branching inside a feature.** Configuration is read once at the composition root and injected as `AppEnvironment` | Konsist |
 | 11 | **Never `commit` or `push`** unless explicitly told to. Leave it in the working tree and say what changed | behavioural |
-| 12 | **Assemble to validate on your own initiative; ask before you run, test or install.** `assembleEnvDevDebug` is free; `installDebug`, `connectedAndroidTest`, launching an emulator and `test` are consent-gated. Typing `/build` is that consent, for the run it names only | behavioural |
+| 12 | **Assemble to validate on your own initiative; ask before you run, test or install.** `assembleEnvDevDebug` is free; `installDebug`, `connectedAndroidTest`, launching an emulator and `test` are consent-gated. Typing `/android-build` is that consent, for the run it names only | behavioural |
 | 13 | **Follow the matching skill and name it before starting** | `androidArchCheckSkillTriggers` |
 | 14 | **Stop on a vague instruction.** Ask for a reference, a focused goal, or which reading — never ship a "safe subset" | behavioural |
 | 15 | **Never delete an installed file with `rm`.** `./gradlew androidArchRemove --path=… --reason=…` | manifest hash mismatch |
@@ -103,7 +103,7 @@ grep -i lint .claude/TASKS.tsv            # which task does this, and its contra
 ```
 
 `MAP.tsv` is grepped, never read. `.claude/notes/` is searched, never read. A full rescan is the
-user's `/sync-app-notes`, never started unprompted. `.claude/memory/` is in-repo and tracked so it
+user's `/android-sync-app-notes`, never started unprompted. `.claude/memory/` is in-repo and tracked so it
 survives a clone.
 
 ## §6 — Concurrency
@@ -166,7 +166,7 @@ Three that are rules, not conventions:
 
 ## §11 — Finishing a change
 
-Read `docs/DONE.md` before saying a change is done, or run `/verify`. Never declare completion from
+Read `docs/DONE.md` before saying a change is done, or run `/android-verify`. Never declare completion from
 memory of the checklist. Say what could not be checked here — a physical device, TalkBack, a
 foldable hinge, a Play upload.
 

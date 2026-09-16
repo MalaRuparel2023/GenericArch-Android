@@ -3,7 +3,9 @@ description: Record a settled decision in docs/DECISIONS.md so it stops being as
 argument-hint: <the decision, in a sentence>
 ---
 
-# /decide
+# /android-decide
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. This task does not exist: `androidArchRemove`. There is no working equivalent yet; this command cannot be run end to end.
 
 A §0 question that has been answered must stop being asked. This is how.
 

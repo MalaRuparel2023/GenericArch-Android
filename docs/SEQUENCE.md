@@ -1,16 +1,23 @@
 # SEQUENCE — the lifecycle gate
 
+> **NOT BUILT — this page is a specification, not instructions.** `androidArchStep` does not
+> exist, and neither does the `.androidarch/STEPS.tsv` ledger; nothing writes it. Every step
+> below except `install` is unenforced today. Recorded as `docs/GAPS.md` row 1 and gated on the
+> `androidArch*` Gradle tasks landing. What *does* run after an install is
+> `./scripts/androidArchDoctor.sh`, then `./scripts/androidArchCheck.sh` — see
+> [getting-started.md](getting-started.md).
+
 ```
 install → project-init → gaps → sync-app-notes → ready
 ```
 
-Every command's first step is `./gradlew androidArchStep --after=<step>`. The ledger lives at
-`.androidarch/STEPS.tsv`.
+Once the tasks exist, every command's first step is `./gradlew androidArchStep --after=<step>`,
+and the ledger lives at `.androidarch/STEPS.tsv`.
 
 ## Why it is a gate and not a suggestion
 
-Out of order these commands **do not fail — they succeed against the wrong input.** `/gaps` before
-`/project-init` triages capabilities against rules nobody has accepted yet, and produces a
+Out of order these commands **do not fail — they succeed against the wrong input.** `/android-gaps` before
+`/android-project-init` triages capabilities against rules nobody has accepted yet, and produces a
 confident, useless answer. That is the failure mode a gate exists to prevent.
 
 ## Exit codes
@@ -25,10 +32,10 @@ confident, useless answer. That is the failure mode a gate exists to prevent.
 
 | Step | Satisfied by | Records |
 |---|---|---|
-| `install` | `androidArchBootstrap --apply` | the manifest exists and verifies |
-| `project-init` | `/project-init` | conflicting rules reconciled, approvals recorded |
-| `gaps` | `/gaps` | `docs/GAPS.md` triaged against this repo |
-| `sync-app-notes` | `/sync-app-notes` | the eleven inventories generated at least once |
+| `install` | `bash bootstrap.sh --apply` — **works today** | `.claude/.genericarch-manifest` exists and verifies |
+| `project-init` | `/android-project-init` | conflicting rules reconciled, approvals recorded |
+| `gaps` | `/android-gaps` | `docs/GAPS.md` triaged against this repo |
+| `sync-app-notes` | `/android-sync-app-notes` | the eleven inventories generated at least once |
 | `ready` | — | the authoring surface is unlocked |
 
 ## Skipping

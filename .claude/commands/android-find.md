@@ -3,7 +3,11 @@ description: One lookup for a screen, route, endpoint, string key, colour, drawa
 argument-hint: <name or partial name>
 ---
 
-# /find
+# /android-find
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchFind`,
+> `androidArchFindTask`. There is no working equivalent yet; use the `grep` lookups below, which
+> need no tooling.
 
 ```bash
 ./gradlew androidArchFind --q=$ARGUMENTS
@@ -22,7 +26,7 @@ feature* — and the `new-feature` skill should stop.
 
 ```bash
 grep -i <topic> .claude/MAP.tsv          # which doc, note or pattern covers a topic
-./gradlew tasks --group=genericarch      # which task does this (TASKS.tsv is not built yet)
+./gradlew tasks                          # which task does this (no TASKS.tsv yet — GAPS row 5)
 ./gradlew androidArchFindTask --q="<what you want>"   # rediscover a task by intent
 ```
 

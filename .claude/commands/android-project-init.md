@@ -4,6 +4,8 @@ description: Adopt GenericArch into an existing Android repo — reconcile confl
 
 # /android-project-init
 
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchCheck`, `androidArchDoctor`. Until they exist, the working equivalent is `./scripts/androidArchCheck.sh`, `./scripts/androidArchDoctor.sh`.
+
 Run once per repo, before anything else.
 
 ```bash

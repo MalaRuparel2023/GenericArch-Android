@@ -30,18 +30,21 @@ docs/patterns/README.md	doc	patterns procedures promote-to-skill template	Writin
 .claude/INDEX.md	doc	what-this-product-has inventory	Looking for something this product specifically has
 .claude/skills/new-feature/SKILL.md	skill	new-screen scaffold-module feature content-states fake	Adding a feature, screen or module (fires by itself)
 .claude/skills/debug/SKILL.md	skill	crash blank-screen release-only leak jank anr symptom-index	Something is broken, blank or silently wrong (fires by itself)
-.claude/commands/project-init.md	command	adopt reconcile rules approval	Adopting the layer into an existing repo
-.claude/commands/gaps.md	command	triage gaps capabilities	Deciding what is deliberately absent in this repo
-.claude/commands/sync-app-notes.md	command	rescan inventories notes generate	The generated inventories are stale
-.claude/commands/find.md	command	lookup screen route endpoint string colour drawable module	You need to know where something is
-.claude/commands/decide.md	command	record decision rationale	A §0 question has been answered and must stop being asked
-.claude/commands/learn.md	command	record resource promote-pattern add-task	Something learned is worth keeping
-.claude/commands/verify.md	command	done checklist diff report	Checking whether a change is actually finished
-.claude/commands/review.md	command	review pr diff rules report-only	Reviewing someone else's change against the rules
-.claude/commands/build.md	command	assemble bundle test consent variant	You want a build run — and this is the consent for it
-.claude/commands/upgrade-stack.md	command	agp gradle kotlin sdk toolchain upgrade	Reconciling the stack with the machine
-.claude/commands/release.md	command	release checklist version changelog emit-only	Preparing a release — it prints commands and runs none
-.claude/commands/sync-with-base.md	command	upstream base updates adopt-review	Taking updates from this base into an adopting repo
+.claude/commands/android-project-init.md	command	adopt reconcile rules approval	Adopting the layer into an existing repo
+.claude/commands/android-gaps.md	command	triage gaps capabilities	Deciding what is deliberately absent in this repo
+.claude/commands/android-sync-app-notes.md	command	rescan inventories notes generate	The generated inventories are stale
+.claude/commands/android-find.md	command	lookup screen route endpoint string colour drawable module	You need to know where something is
+.claude/commands/android-decide.md	command	record decision rationale	A §0 question has been answered and must stop being asked
+.claude/commands/android-learn.md	command	record resource promote-pattern add-task	Something learned is worth keeping
+.claude/commands/android-verify.md	command	done checklist diff report	Checking whether a change is actually finished
+.claude/commands/android-review.md	command	review pr diff rules report-only	Reviewing someone else's change against the rules
+.claude/commands/android-build.md	command	assemble bundle test consent variant	You want a build run — and this is the consent for it
+.claude/commands/android-upgrade-stack.md	command	agp gradle kotlin sdk toolchain upgrade	Reconciling the stack with the machine
+.claude/commands/android-release.md	command	release checklist version changelog emit-only	Preparing a release — it prints commands and runs none
+.claude/commands/android-sync-with-base.md	command	upstream base updates adopt-review	Taking updates from this base into an adopting repo
+.claude/commands/android-arch-doctor.md	command	doctor environment toolchain preflight diagnose	Before anything else — is the ground solid enough to build on
+.claude/commands/android-arch-check.md	command	check rules violations architecture gate merge	Is this code safe to merge — every violation, not the first
+.claude/commands/android-arch-test.md	command	test tiers unit screenshot instrumented device	Running the test tiers, cheapest first
 .claude/notes/PROJECT.md	note:remote	agp gradle kotlin jdk sdks flavours signing resolved-stack	You need a version — never quote one from memory
 .claude/notes/MODULE-GRAPH.md	note:remote	modules dependencies direction mermaid	Checking whether a dependency edge is legal
 .claude/notes/NAVIGATION.md	note:remote	routes navhost destinations deep-links	Adding or finding a route

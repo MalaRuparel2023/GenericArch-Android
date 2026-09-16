@@ -1,13 +1,13 @@
 # DONE — what "finished" means
 
-Read this before saying a change is done, or run `/verify`. Never declare completion from memory of
+Read this before saying a change is done, or run `/android-verify`. Never declare completion from memory of
 this list. Anything that cannot be checked on this machine is **stated as unchecked**, not assumed.
 
 ## Every change
 
 - [ ] `./gradlew androidArchCheck` passes — or its failures are listed and explained
 - [ ] `./gradlew androidArchTest` passes for the modules touched
-- [ ] No rule in `CLAUDE.md` §2 is broken; if one had to bend, it is a `/decide` row
+- [ ] No rule in `CLAUDE.md` §2 is broken; if one had to bend, it is a `/android-decide` row
 - [ ] Public API added carries KDoc (§10); nothing is `public` that need not be
 - [ ] No new dependency without a §0 decision, and none imported outside its wrapper (§7)
 - [ ] Working tree only — nothing committed or pushed unless asked (§2.11)

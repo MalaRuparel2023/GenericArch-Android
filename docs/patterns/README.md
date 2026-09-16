@@ -2,7 +2,7 @@
 
 A pattern is a repeatable procedure written down. It becomes a **skill** only when it is invoked
 often enough that the always-on context cost of its description is worth paying — a skill costs
-context every session, a doc costs nothing until it is read. `/learn` promotes one.
+context every session, a doc costs nothing until it is read. `/android-learn` promotes one.
 
 Candidates that usually stay patterns: adding a locale · wrapping a new vendor SDK · adding a Room
 migration · introducing a new flavour · regenerating screenshot goldens after a design-token change.

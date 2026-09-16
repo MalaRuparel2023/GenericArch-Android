@@ -3,7 +3,7 @@
 In-repo and tracked, so it survives a clone. Never a machine-local store — a memory only one
 laptop has is a memory the team does not have.
 
-One file per topic, listed here with the trigger for reading it. Written by `/learn`.
+One file per topic, listed here with the trigger for reading it. Written by `/android-learn`.
 
 | File | About | Read when |
 |---|---|---|

@@ -2,7 +2,9 @@
 description: Reconcile AGP, Gradle, Kotlin, KSP and SDK versions with what the machine has — asks twice
 ---
 
-# /upgrade-stack
+# /android-upgrade-stack
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchCheck`, `androidArchDoctor`. Until they exist, the working equivalent is `./scripts/androidArchCheck.sh`, `./scripts/androidArchDoctor.sh`.
 
 ```bash
 ./gradlew androidArchDoctor --mismatches

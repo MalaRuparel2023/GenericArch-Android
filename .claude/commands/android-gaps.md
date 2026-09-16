@@ -32,5 +32,7 @@ which is worse. Run `/android-project-init` first.
 
 ## Effect on the doctor
 
+A gap is never filled silently as part of another task — recording one is its own change.
+
 Once recorded, a gap prints `⚠` instead of `✗`. That is the whole point: the diagnostics stop
 nagging about a decision you have already made, and keep nagging about the ones you have not.

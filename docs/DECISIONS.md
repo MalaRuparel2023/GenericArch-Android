@@ -1,7 +1,7 @@
 # DECISIONS
 
 Settled choices, with the reasoning that settled them. Claude reads this **before** asking a §0
-question — a row here means do not ask again. Written by `/decide`, never by hand in a hurry.
+question — a row here means do not ask again. Written by `/android-decide`, never by hand in a hurry.
 
 Format: one `##` block per decision, newest first.
 

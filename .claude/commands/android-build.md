@@ -5,6 +5,8 @@ argument-hint: [check | test | debug | release]
 
 # /android-build
 
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchCheck`, `androidArchDoctor`, `androidArchTest`. Until they exist, the working equivalent is `./scripts/androidArchCheck.sh`, `./scripts/androidArchDoctor.sh`, `./scripts/androidArchTest.sh`.
+
 Assembling is free and happens on initiative to validate a change. **Running, installing and testing
 are not.** Typing this command is the consent, **for the run it names**, and it does not carry
 forward to the next one.

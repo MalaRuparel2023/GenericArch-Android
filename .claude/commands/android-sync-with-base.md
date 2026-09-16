@@ -2,7 +2,9 @@
 description: Take upstream updates from GenericArch-Android into this repo
 ---
 
-# /sync-with-base
+# /android-sync-with-base
+
+> **Not implemented yet** — `docs/GAPS.md` row 1. These tasks do not exist: `androidArchAdoptReview`, `androidArchRemove`, `androidArchReseal`. There is no working equivalent yet; this command cannot be run end to end.
 
 ```bash
 ./gradlew androidArchAdoptReview

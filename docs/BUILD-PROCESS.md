@@ -34,7 +34,7 @@ move the configuration into a convention plugin.
 
 Assembling is free — do it on your own initiative to validate a change. `installDebug`,
 `connectedAndroidTest`, launching an emulator and `test` are consent-gated (`CLAUDE.md` §2.12).
-Typing `/build` is that consent, for the run it names only.
+Typing `/android-build` is that consent, for the run it names only.
 
 ## Cross-OS traps
 

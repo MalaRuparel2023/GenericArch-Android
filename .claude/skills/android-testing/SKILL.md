@@ -65,5 +65,5 @@ A flaky test is worse than no test: it teaches the team to ignore red.
 
 ## 6. Running is consent-gated
 
-Write tests freely; **assembling is free, running is not** (§2.12). `/android-arch-test` or `/build`
+Write tests freely; **assembling is free, running is not** (§2.12). `/android-arch-test` or `/android-build`
 is the consent, for the run it names.

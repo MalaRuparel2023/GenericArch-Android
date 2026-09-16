@@ -74,4 +74,4 @@ release). It is still not an undo — installed copies keep the bad build.
 - [ ] `mapping.txt` uploaded to Crashlytics and retained as a CI artefact
 - [ ] Staged rollout enabled, kill-switch flag created, rollback plan written down **before** submitting
 
-`/release` walks this list against the diff and **prints** the commands. It runs none of them.
+`/android-release` walks this list against the diff and **prints** the commands. It runs none of them.

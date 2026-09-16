@@ -23,7 +23,7 @@ Then read `docs/DECISIONS.md`. A row there answers a §0 question — do not ask
 
 Presentation pattern · persistence engine · caching/offline policy · paging · any new dependency ·
 `minSdk` · a new flavour · a new permission. Options + a recommendation + **Other** + **Skip**.
-Wait. Record with `/decide`.
+Wait. Record with `/android-decide`.
 
 Asking these one at a time across three messages is the failure mode this step exists to prevent.
 
@@ -56,5 +56,5 @@ test doubles · gotchas. And its `MAP.tsv` row, in this same change.
 
 ## 5. Finish
 
-Walk `docs/DONE.md`, or run `/verify`. Assemble to validate. **Do not run, install or test without
+Walk `docs/DONE.md`, or run `/android-verify`. Assemble to validate. **Do not run, install or test without
 being asked** (§2.12), and do not commit or push (§2.11).

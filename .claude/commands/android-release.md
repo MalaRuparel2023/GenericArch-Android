@@ -3,7 +3,7 @@ description: Prepare a release — version bump, changelog, checklist walked aga
 argument-hint: <version, e.g. 1.10.8>
 ---
 
-# /release
+# /android-release
 
 **`EMIT_ONLY`.** This command walks the release checklist and **prints** the commands. It runs none
 of them. Nothing about a Play upload is one inferred tool call away.

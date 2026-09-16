@@ -4,6 +4,8 @@ description: Walk the completion checklist against the working diff — reports 
 
 # /android-verify
 
+> **Not implemented yet** — `docs/GAPS.md` row 1. This task does not exist: `androidArchCheck`. Until they exist, the working equivalent is `./scripts/androidArchCheck.sh`.
+
 Never declare a change finished from memory of the checklist. This walks the **actual diff**.
 
 ```bash

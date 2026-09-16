@@ -90,7 +90,7 @@ learn what it does"* means the registry replaces reading, not supplements it.
 **5. A lifecycle gate that returns exit 5.** `install → project-init → gaps → sync-app-notes →
 ready`, enforced by `ga-step.sh` as the *first step of every command*. The reasoning is the good
 part: out of order these commands *would not fail, they would succeed against the wrong input*.
-`/gaps` before `/project-init` triages capabilities against rules nobody accepted yet. A step that
+`/android-gaps` before `/android-project-init` triages capabilities against rules nobody accepted yet. A step that
 genuinely does not apply is recorded as skipped, **by the operator, with a reason** — Claude never
 passes `--force`.
 
@@ -105,7 +105,7 @@ forbids `rm`.
 
 **7. An explicit consent model.** §2.12: *build freely to validate, ask before you run or test.*
 §2.11: *never commit or push* — not to "save progress", not because the work looks finished. Typing
-`/build` **is** the consent for that one run, and it does not carry forward. Three pipeline phases
+`/android-build` **is** the consent for that one run, and it does not carry forward. Three pipeline phases
 are hard-gated and cannot be turned off: phase 5 refuses to write without `--approve`, phase 7
 prints test commands and runs nothing, phase 9 emits a commit script and never runs git.
 
@@ -269,7 +269,7 @@ Below: every section, what it holds on Android, and what changes from iOS.
 ### §0 — Decisions Claude must ASK about, never assume
 
 Same mechanism: check `docs/DECISIONS.md` first; if a row answers it, follow it without re-asking.
-Otherwise offer options + a recommendation + **Other** + **Skip**, wait, then record with `/decide`.
+Otherwise offer options + a recommendation + **Other** + **Skip**, wait, then record with `/android-decide`.
 
 | Decision | When to ask | Android options |
 |---|---|---|
@@ -335,7 +335,7 @@ portable across the two bases.
 | 9 | **No silent architectural choice.** If it is in §0, ask | — (review) |
 | 10 | **No `BuildConfig.DEBUG` or flavour branching inside a feature.** Configuration is read once at the composition root and injected as `AppEnvironment` | Konsist: no `BuildConfig` import under `feature/` |
 | 11 | **Never `commit` or `push`** unless explicitly told to. Leave it in the working tree and say what changed | — (behavioural) |
-| 12 | **Assemble to validate on your own initiative; ask before you run, test or install.** `./gradlew assembleEnvDevDebug` is free; `installDebug`, `connectedAndroidTest`, launching an emulator, and `test` are consent-gated. Typing `/build` is that consent for the run it names | — (behavioural) |
+| 12 | **Assemble to validate on your own initiative; ask before you run, test or install.** `./gradlew assembleEnvDevDebug` is free; `installDebug`, `connectedAndroidTest`, launching an emulator, and `test` are consent-gated. Typing `/android-build` is that consent for the run it names | — (behavioural) |
 | 13 | **Follow the matching skill and name it before starting** | `check-skill-triggers.py` equivalent |
 | 14 | **Stop on a vague instruction.** Ask for a reference, a focused goal, or which reading — never ship a "safe subset" | — (behavioural) |
 | 15 | **Never delete an installed file with `rm`.** Use `./gradlew androidArchRemove --path=… --reason=…` | manifest hash mismatch on the next `androidArchCheck` |
@@ -392,7 +392,7 @@ grep -i lint .claude/TASKS.tsv            # which task does this, and its contra
 ```
 
 Same rules: `MAP.tsv` is grepped never read; `.claude/notes/` is searched never read; a full rescan
-is the user's `/sync-app-notes`, never started unprompted; `.claude/memory/` is in-repo and tracked
+is the user's `/android-sync-app-notes`, never started unprompted; `.claude/memory/` is in-repo and tracked
 so it survives a clone.
 
 ### §6 — Concurrency
@@ -471,7 +471,7 @@ that are rules, not conventions:
 
 ### §11 — Finishing a change
 
-Read `docs/DONE.md` before saying a change is done, or run `/verify`. Never declare completion from
+Read `docs/DONE.md` before saying a change is done, or run `/android-verify`. Never declare completion from
 memory of the checklist. Say what could not be checked here (a physical device, TalkBack, a
 foldable hinge, a Play upload).
 
@@ -518,7 +518,7 @@ machine-readable:
 
 That is eleven, two of them reviewer-gated. Keep the iOS discipline: **a generated block carries its
 own caveat inside it, and `Last synced` line**; and **edit the affected rows in the same change as
-the insertion or deletion** — a full rescan is `/sync-app-notes`, the user's call.
+the insertion or deletion** — a full rescan is `/android-sync-app-notes`, the user's call.
 
 ### 5.3 `memory/` and `INDEX.md`
 
@@ -560,18 +560,18 @@ Same split as iOS: **anything that must never fire by inference is a command.**
 
 | Command | Does |
 |---|---|
-| `/project-init` | Adopt into an existing repo — reconciles conflicting rules, approval first |
-| `/gaps` | Triage `docs/GAPS.md` |
-| `/sync-app-notes` | Rebuild the eleven inventories — incremental, only what changed |
-| `/find` | One lookup for a screen, route, endpoint, string key, colour, drawable or module |
-| `/decide` | Record a settled decision in `docs/DECISIONS.md` |
-| `/learn` | Record a resource or finished work; promote a pattern to a skill, or `--task` a repeated step |
-| `/verify` | Walk `DONE.md` against the working diff — reports, never fixes |
-| `/review` | Review someone else's diff or PR against the rules — reports, never edits |
-| `/build` | Assemble, test or bundle a variant — **and this is the consent §2.12 requires** |
-| `/upgrade-stack` | Reconcile AGP/Gradle/Kotlin/SDK with the machine — asks twice |
-| `/release` | Prepare a release: version bump, changelog, checklist walked against the diff. **Emits commands, never runs them** *(new — iOS folds this into `/build` + docs)* |
-| `/sync-with-base` | Take upstream base updates |
+| `/android-project-init` | Adopt into an existing repo — reconciles conflicting rules, approval first |
+| `/android-gaps` | Triage `docs/GAPS.md` |
+| `/android-sync-app-notes` | Rebuild the eleven inventories — incremental, only what changed |
+| `/android-find` | One lookup for a screen, route, endpoint, string key, colour, drawable or module |
+| `/android-decide` | Record a settled decision in `docs/DECISIONS.md` |
+| `/android-learn` | Record a resource or finished work; promote a pattern to a skill, or `--task` a repeated step |
+| `/android-verify` | Walk `DONE.md` against the working diff — reports, never fixes |
+| `/android-review` | Review someone else's diff or PR against the rules — reports, never edits |
+| `/android-build` | Assemble, test or bundle a variant — **and this is the consent §2.12 requires** |
+| `/android-upgrade-stack` | Reconcile AGP/Gradle/Kotlin/SDK with the machine — asks twice |
+| `/android-release` | Prepare a release: version bump, changelog, checklist walked against the diff. **Emits commands, never runs them** *(new — iOS folds this into `/android-build` + docs)* |
+| `/android-sync-with-base` | Take upstream base updates |
 
 Note the fix to a real bug in the current repo: the directory must be `.claude/commands/`
 (plural). `.claude/command/build.md` is never loaded by Claude Code — see §11.
@@ -964,7 +964,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }        # androidArchSyncNotes and /verify need the merge base
+        with: { fetch-depth: 0 }        # androidArchSyncNotes and /android-verify need the merge base
 
       - uses: actions/setup-java@v4
         with:
@@ -1358,7 +1358,7 @@ Independently arrived at, from different directions:
 - **`build-logic/` convention plugins before anything else.** Both plans put it in the first phase.
 - **Gradle is the engine; any CLI or CI file is a thin shell over it.**
 - **A discovery phase before modification** — the sequencing plan's `docs/GAPS.md`-for-a-new-project
-  is the same instinct as GenericArch's `/project-init` → `/gaps` gate.
+  is the same instinct as GenericArch's `/android-project-init` → `/android-gaps` gate.
 - **`docs/DECISIONS.md` and `docs/GAPS.md` as separate files.** Why-it-is-this-way and
   what-is-deliberately-absent are different questions, and conflating them is how "we skipped that"
   decays into "we forgot that".
@@ -1419,7 +1419,7 @@ up-to-date-ness. A registry generated from real metadata cannot drift the way a 
 
 **9.6 ADRs with a supersede chain.** `DECISIONS.md` as one flat table stops scaling around fifty
 rows. Number the decisions (`ADR-0042`), give each a status (`accepted` / `superseded by ADR-0071` /
-`declined`), and let `/decide` maintain the chain. Keeps the "why is it this way" answer honest
+`declined`), and let `/android-decide` maintain the chain. Keeps the "why is it this way" answer honest
 years later, which is the entire point of the file.
 
 **9.7 One entry point: `androidArchDoctor`.** GenericArch's install flow is four scripts, eleven commands and
@@ -1432,7 +1432,7 @@ command to run**. One command that tells you the truth about the repo.
 declared limit on CI minutes per PR. A pipeline with no stated budget grows until someone starts
 skipping it, which is worse than a slower pipeline everyone runs.
 
-**9.9 A `/release` command that emits and never runs.** GenericArch gets this exactly right for its
+**9.9 A `/android-release` command that emits and never runs.** GenericArch gets this exactly right for its
 commit phase (phase 9 *"emits a script and never runs git"*) but leaves release orchestration to
 prose. Make it a first-class `EMIT_ONLY` command: it walks the checklist against the diff, then
 prints the commands. Nothing about a Play upload should be one inferred tool call away.
