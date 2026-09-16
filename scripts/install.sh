@@ -125,12 +125,28 @@ for entry in "${plan[@]}"; do
   while IFS= read -r line; do [ -n "$line" ] && files+=("$line"); done < <(expand "$src" "$rel")
 done
 
-written=0 skipped=0
+# A re-run finds its own files already there and skips them — but they are still ours, and the
+# manifest is rewritten from `installed` below. Without carrying the previous entries forward, the
+# second `install.sh --apply` left a manifest naming zero files and stranded every one of them.
+# awk, not an associative array: macOS still ships bash 3.2.
+prev_hash() {
+  [ -f "$TARGET/$MANIFEST_REL" ] || return 0
+  awk -F'\t' -v p="$1" '$1=="file" && $2==p {print $3; exit}' "$TARGET/$MANIFEST_REL"
+}
+
+written=0 skipped=0 readopted=0
 installed=()
 for entry in "${files[@]}"; do
   src="${entry%%|*}"; rel="${entry##*|}"; dst="$TARGET/$rel"
   if [ -e "$dst" ]; then
-    printf '  %-52s  exists, left alone\n' "$rel"; skipped=$((skipped + 1)); continue
+    ph="$(prev_hash "$rel")"
+    if [ -n "$ph" ]; then
+      installed+=("$rel	$ph"); readopted=$((readopted + 1))
+      printf '  %-52s  already installed\n' "$rel"
+    else
+      printf '  %-52s  exists, left alone\n' "$rel"
+    fi
+    skipped=$((skipped + 1)); continue
   fi
   printf '  %-52s  %s\n' "$rel" "$([ "$APPLY" -eq 1 ] && echo written || echo 'would write')"
   if [ "$APPLY" -eq 1 ]; then
@@ -147,7 +163,11 @@ for rel in ${missing+"${missing[@]}"}; do
 done
 
 echo
-echo "  $written to write, $skipped left alone"
+if [ "$readopted" -gt 0 ]; then
+  echo "  $written to write, $readopted already installed, $((skipped - readopted)) left alone"
+else
+  echo "  $written to write, $skipped left alone"
+fi
 
 # Written last: a manifest that exists is a manifest whose every line was copied. uninstall.sh
 # removes exactly these paths and nothing else, so a file you added yourself is never a casualty.
@@ -160,7 +180,7 @@ if [ "$APPLY" -eq 1 ]; then
     for rec in ${installed+"${installed[@]}"}; do echo "file	$rec"; done
   } > "$TARGET/$MANIFEST_REL"
   echo
-  echo "  manifest  $MANIFEST_REL ($written files)"
+  echo "  manifest  $MANIFEST_REL (${#installed[@]} files)"
   echo "  Next:     ./scripts/androidArchDoctor.sh"
   echo "  Remove:   bash scripts/uninstall.sh --target \"$TARGET\" --apply"
 fi
